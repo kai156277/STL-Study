@@ -84,7 +84,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
@@ -149,6 +149,14 @@
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="tiny_algobase.h" />
+    <ClInclude Include="tiny_algorithm.h" />
+    <ClInclude Include="tiny_alloc.h" />
+    <ClInclude Include="tiny_config.h" />
+    <ClInclude Include="tiny_construct.h" />
+    <ClInclude Include="tiny_iterator.h" />
+    <ClInclude Include="tiny_type_traits.h" />
+    <ClInclude Include="tiny_uninitialized.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
