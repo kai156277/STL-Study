@@ -62,7 +62,12 @@ public:
         return result;
     }
 
-    static void deallocate(void *ptr)
+	static void deallocate(void *ptr)
+	{
+		free(ptr);
+	}
+
+    static void deallocate(void *ptr, size_t n)
     {
         free(ptr);
     }
@@ -89,6 +94,7 @@ private:
     static void* oom_realloc(void *ptr, size_t n);
     static malloc_alloc_oom_handler mHandler;
 };
+
 
 malloc_alloc_oom_handler malloc_alloc::mHandler = nullptr;
 
@@ -144,6 +150,7 @@ enum { align = 8 }; // 小型区块上调边界
 enum { max_bytes = 128 }; // 小型区块的最大值
 enum { num_free_lists = 16 }; // free-lists 个数
 
+
 class default_alloc
 {
 public:
@@ -162,7 +169,7 @@ private:
 	// 根据区块大小，决定使用第n号free-list, n从0开始
 	static size_t freelist_index(size_t bytes)
 	{
-		return (bytes + align - 1) / (align - 1);
+		return ((bytes + align - 1) / align - 1);
 	}
 	// 调整上界至 8的倍数
 	static size_t round_up(size_t bytes)
@@ -186,7 +193,11 @@ char *default_alloc::start_free = 0;
 char *default_alloc::end_free = 0;
 size_t default_alloc::heap_size = 0;
 
-default_alloc::obj* default_alloc::free_list[num_free_lists] = { nullptr };
+default_alloc::obj* default_alloc::free_list[num_free_lists] = { 
+	nullptr, nullptr, nullptr, nullptr, 
+	nullptr, nullptr, nullptr, nullptr,
+	nullptr, nullptr, nullptr, nullptr,
+	nullptr, nullptr, nullptr, nullptr,};
 
 // n must be > 0
 void* default_alloc::allocate(size_t n)
@@ -223,7 +234,7 @@ void default_alloc::deallocate(void *ptr, size_t n)
 	// 大于128就调用第一级配置器
 	if (n > (size_t)max_bytes)
 	{
-		malloc_alloc::deallocate(ptr);
+		malloc_alloc::deallocate(ptr, n);
 		return;
 	}
 
@@ -269,7 +280,8 @@ void* default_alloc::refill(size_t n)
 	if (i == nobjs)
 		return (chunk);
 	// 否则调整free list ，纳入新节点
-	my_free_list = free_list + freelist_index(n);
+	size_t tmp = freelist_index(n);
+	my_free_list = free_list + tmp;
 
 	// 以下在 chunk 空间内建立free list
 	result = (obj*)chunk;
@@ -358,4 +370,9 @@ char* default_alloc::chunk_alloc(size_t size, int *nobjs)
 	}
 }
 
+#ifdef SIMPLE_MALLOC
+	typedef malloc_alloc alloc;
+#else
+	typedef default_alloc alloc;
+#endif // SIMPLE_MALLOC
 TINY_STL_END_NAMESPACE

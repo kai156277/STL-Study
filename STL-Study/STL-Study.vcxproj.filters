@@ -39,10 +39,7 @@
     <ClInclude Include="tiny_uninitialized.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="tiny_algorithm.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="tiny_algobase.h">
+    <ClInclude Include="tiny_vector.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

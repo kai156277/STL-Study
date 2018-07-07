@@ -4,7 +4,6 @@
 #include "tiny_iterator.h"
 #include "tiny_type_traits.h"
 #include "tiny_construct.h"
-#include <algorithm>
 
 TINY_STL_BEGIN_NAMESPACE
 
@@ -44,7 +43,7 @@ void uninitialized_fill(ForwardIterator first,
 template<typename ForwardIterator, typename Size, typename T>
 ForwardIterator uninitialized_fill_n(ForwardIterator first, Size n, const T& x)
 {
-	__uninitialized_fill_n(first, n, x, value_type(first));
+	return __uninitialized_fill_n(first, n, x, value_type(first));
 }
 
 #pragma region[__uninitialized_copy]
@@ -59,7 +58,7 @@ inline ForwardIterator __uninitialized_copy(InputIterator first,
 }
 
 
-template<typename InputIterator, typename ForwardIterator, typename T>
+template<typename InputIterator, typename ForwardIterator>
 inline ForwardIterator __uninitialized_copy_aux(InputIterator first,
 												InputIterator last,
 												ForwardIterator result,
@@ -68,7 +67,7 @@ inline ForwardIterator __uninitialized_copy_aux(InputIterator first,
 	return std::copy(first, last, result);
 }
 
-template<typename InputIterator, typename ForwardIterator, typename T>
+template<typename InputIterator, typename ForwardIterator>
 inline ForwardIterator __uninitialized_copy_aux(InputIterator first,
 												InputIterator last,
 												ForwardIterator result,
@@ -149,7 +148,7 @@ inline ForwardIterator __uninitialized_fill_n(ForwardIterator first,
 											  Size n, const T& x, T1*)
 {
 	typedef typename type_traits<T1>::is_POD_type is_POD;
-	return __uninitialized_fill_aux(first, n, x, is_POD());
+	return __uninitialized_fill_n_aux(first, n, x, is_POD());
 }
 
 template<typename ForwardIterator, typename Size, typename T>

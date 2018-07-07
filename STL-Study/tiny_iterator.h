@@ -92,6 +92,12 @@ value_type(const Iterator&)
 	return static_cast<typename iterator_traits<Iterator>::value_type*>(0);
 }
 
+template<typename T>
+inline T* value_type(const T*)
+{
+	return (T*)(0);
+}
+
 // distance() 可以接受任何类型的迭代器，为了遵循STL算法的命名规则：以算法所能接受的最初级的类型
 // 为其迭代器参数命名
 template <typename InputIterator>

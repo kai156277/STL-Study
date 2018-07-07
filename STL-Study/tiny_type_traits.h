@@ -31,6 +31,7 @@ struct type_traits
 	typedef false_type	is_POD_type; // POD: Plain Old Data
 };
 
+#pragma region[type_traits]
 template<> struct type_traits<bool>
 {
 	typedef true_type	has_trivial_default_constructor;
@@ -223,5 +224,81 @@ template<> struct type_traits<const unsigned char*> {
    typedef true_type    has_trivial_destructor;
    typedef true_type    is_POD_type;
 };
+#pragma endregion
+
+template<typename type>
+struct is_integer
+{
+	typedef false_type Integral;
+};
+
+#pragma region[is_integer]
+template<> struct is_integer<bool>
+{
+	typedef true_type Integral;
+};
+
+template<> struct is_integer<char>
+{
+	typedef true_type Integral;
+};
+
+template<> struct is_integer<signed char>
+{
+	typedef true_type Integral;
+};
+
+template<> struct is_integer<unsigned char>
+{
+	typedef true_type Integral;
+};
+
+
+template<> struct is_integer<wchar_t>
+{
+	typedef true_type Integral;
+};
+
+
+template<> struct is_integer<short>
+{
+	typedef true_type Integral;
+};
+
+template<> struct is_integer<unsigned short>
+{
+	typedef true_type Integral;
+};
+
+template<> struct is_integer<int>
+{
+	typedef true_type Integral;
+};
+
+template<> struct is_integer<unsigned int>
+{
+	typedef true_type Integral;
+};
+
+template<> struct is_integer<long>
+{
+	typedef true_type Integral;
+};
+
+template<> struct is_integer<unsigned long>
+{
+	typedef true_type Integral;
+};
+
+template<> struct is_integer<long long>
+{
+	typedef true_type Integral;
+};
+
+template<> struct is_integer<unsigned long long>
+{
+	typedef true_type Integral;
+};
+#pragma endregion
 
 TINY_STL_END_NAMESPACE
