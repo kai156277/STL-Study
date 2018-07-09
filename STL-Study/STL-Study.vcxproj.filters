@@ -42,6 +42,12 @@
     <ClInclude Include="tiny_vector.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="tiny_algo.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="tiny_numeric.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">

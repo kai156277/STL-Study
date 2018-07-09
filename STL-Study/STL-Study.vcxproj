@@ -149,10 +149,12 @@
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="tiny_algo.h" />
     <ClInclude Include="tiny_alloc.h" />
     <ClInclude Include="tiny_config.h" />
     <ClInclude Include="tiny_construct.h" />
     <ClInclude Include="tiny_iterator.h" />
+    <ClInclude Include="tiny_numeric.h" />
     <ClInclude Include="tiny_type_traits.h" />
     <ClInclude Include="tiny_uninitialized.h" />
     <ClInclude Include="tiny_vector.h" />
