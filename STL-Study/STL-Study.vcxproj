@@ -150,6 +150,7 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="tiny_algo.h" />
+    <ClInclude Include="tiny_algobase.h" />
     <ClInclude Include="tiny_alloc.h" />
     <ClInclude Include="tiny_config.h" />
     <ClInclude Include="tiny_construct.h" />
