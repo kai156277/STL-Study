@@ -4,6 +4,7 @@
 #include "tiny_iterator.h"
 #include "tiny_type_traits.h"
 #include "tiny_construct.h"
+#include "tiny_algobase.h"
 
 TINY_STL_BEGIN_NAMESPACE
 
@@ -64,7 +65,7 @@ inline ForwardIterator __uninitialized_copy_aux(InputIterator first,
 												ForwardIterator result,
 												true_type)
 {
-	return std::copy(first, last, result);
+	return tiny::copy(first, last, result);
 }
 
 template<typename InputIterator, typename ForwardIterator>
@@ -86,6 +87,7 @@ inline ForwardIterator __uninitialized_copy_aux(InputIterator first,
 	{
 		destroy(result, cur);
 	}
+	return result;
 }
 
 // 针对 const char* 的特化版本
@@ -155,7 +157,7 @@ template<typename ForwardIterator, typename Size, typename T>
 inline ForwardIterator __uninitialized_fill_n_aux(ForwardIterator first,
 												  Size n, const T& x, true_type)
 {
-	return std::fill_n(first, n, x);
+	return tiny::fill_n(first, n, x);
 }
 
 template<typename ForwardIterator, typename Size, typename T>
@@ -173,6 +175,7 @@ inline ForwardIterator __uninitialized_fill_n_aux(ForwardIterator first,
 	{
 		destroy(first, cur);
 	}
+	return first;
 }
 #pragma endregion
 
