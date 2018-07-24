@@ -30,7 +30,7 @@ inline void destroy(ForwardIterator first, ForwardIterator last)
 template<typename ForwardIterator, typename T>
 inline void __destroy(ForwardIterator first, ForwardIterator last, T*)
 {
-	typedef typename type_traits<T>::has_trivial_destructor trivial_destructor;
+	typedef typename type_traits<T>::has_default_destructor trivial_destructor;
 	__destroy_aux(first, last, trivial_destructor());
 }
 

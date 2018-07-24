@@ -51,6 +51,12 @@
     <ClInclude Include="tiny_algobase.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="algorithm\tiny_copy.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="algorithm\tiny_copy_backward.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
