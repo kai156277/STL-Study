@@ -157,8 +157,10 @@
     <ClInclude Include="tiny_alloc.h" />
     <ClInclude Include="tiny_config.h" />
     <ClInclude Include="tiny_construct.h" />
+    <ClInclude Include="tiny_def\tiny_vector_def.h" />
     <ClInclude Include="tiny_iterator.h" />
     <ClInclude Include="tiny_numeric.h" />
+    <ClInclude Include="tiny_print.h" />
     <ClInclude Include="tiny_type_traits.h" />
     <ClInclude Include="tiny_uninitialized.h" />
     <ClInclude Include="tiny_unit_test.h" />

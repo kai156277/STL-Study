@@ -1,5 +1,6 @@
 #pragma once
 
+#include "tiny_algobase.h"
 #include "tiny_config.h"
 
 TINY_STL_BEGIN_NAMESPACE

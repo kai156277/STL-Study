@@ -39,9 +39,6 @@
     <ClInclude Include="tiny_uninitialized.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="tiny_vector.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="tiny_algo.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -64,6 +61,15 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="tiny_unit_test.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="tiny_print.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="tiny_vector.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="tiny_def\tiny_vector_def.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

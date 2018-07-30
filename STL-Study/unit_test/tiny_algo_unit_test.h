@@ -31,3 +31,4 @@ namespace tiny {
 
 void tiny_copy_unit_test();
 void tiny_copy_backward_unit_test();
+void tiny_STL_print_unit_test();

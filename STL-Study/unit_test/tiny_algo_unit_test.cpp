@@ -2,6 +2,7 @@
 #include <cstdio>
 #include "tiny_algobase.h"
 #include "tiny_vector.h"
+#include "tiny_print.h"
 
 using namespace tiny;
 void tiny_copy_unit_test()
@@ -136,4 +137,31 @@ void tiny_copy_backward_unit_test()
 	for (size_t i = 0; i < Cvd1.size(); ++i)
 		printf("%d ", Cvd1[i]._data1);
 	putchar('\n');
+}
+
+struct Test_print
+{
+	Test_print(double _a, double _b) : a(_a), b(_b)
+	{}
+	double a;
+	double b;
+};
+
+template<>
+struct item_printf<Test_print>
+{
+	void operator()(const Test_print& item)
+	{
+		printf("%lf, %lf \n", item.a, item.b);
+	}
+};
+
+void tiny_STL_print_unit_test()
+{
+	vector<Test_print> vec1;
+	for (int i = 0; i < 10; ++i)
+	vec1.push_back(Test_print(i, i + 1));
+
+	STL_printf(vec1);
+
 }
