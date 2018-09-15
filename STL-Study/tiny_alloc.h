@@ -49,6 +49,7 @@ public:
 typedef void (* malloc_alloc_oom_handler)();
 
 // 第一级配置器
+template<int inst>
 class malloc_alloc
 {
 public:
@@ -82,6 +83,7 @@ enum { max_bytes = 128 }; // 小型区块的最大值
 enum { num_free_lists = 16 }; // free-lists 个数
 
 
+template<int inst>
 class default_alloc
 {
 public:
@@ -115,9 +117,11 @@ private:
 };
 
 
-#ifdef SIMPLE_MALLOC
-	typedef malloc_alloc alloc;
+#ifdef DEFAULT_MALLOC
+	typedef default_alloc<0> alloc;
 #else
-	typedef default_alloc alloc;
+	typedef malloc_alloc<0> alloc;
 #endif // SIMPLE_MALLOC
 TINY_STL_END_NAMESPACE
+
+#include "tiny_def\tiny_alloc_def.h"

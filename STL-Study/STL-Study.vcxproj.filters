@@ -72,6 +72,9 @@
     <ClInclude Include="tiny_def\tiny_vector_def.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="tiny_def\tiny_alloc_def.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -85,9 +88,6 @@
     </ClCompile>
     <ClCompile Include="unit_test\tiny_algo_unit_test.cpp">
       <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="tiny_alloc.cpp">
-      <Filter>头文件</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -429,7 +429,7 @@ template<typename T, typename Alloc>
 inline void vector<T, Alloc>::fill_initalize(size_type n, const T & value)
 {
 	start = data_allocator::allocate(n);
-	uninitialized_fill_n(begin(), n, value);
+	tiny::uninitialized_fill_n(begin(), n, value);
 	finish = start + n;
 	end_of_storage = finish;
 }

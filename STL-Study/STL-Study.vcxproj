@@ -89,7 +89,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>MORE_DEBUG_INFO;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions);SIMPLE_MALLOC</PreprocessorDefinitions>
+      <PreprocessorDefinitions>MORE_DEBUG_INFO;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
@@ -157,6 +157,7 @@
     <ClInclude Include="tiny_alloc.h" />
     <ClInclude Include="tiny_config.h" />
     <ClInclude Include="tiny_construct.h" />
+    <ClInclude Include="tiny_def\tiny_alloc_def.h" />
     <ClInclude Include="tiny_def\tiny_vector_def.h" />
     <ClInclude Include="tiny_iterator.h" />
     <ClInclude Include="tiny_numeric.h" />
@@ -176,7 +177,6 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="STL-Study.cpp" />
-    <ClCompile Include="tiny_alloc.cpp" />
     <ClCompile Include="unit_test\tiny_algo_unit_test.cpp" />
     <ClCompile Include="unit_test\tiny_vector_unit_test.cpp" />
   </ItemGroup>

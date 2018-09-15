@@ -2,9 +2,11 @@
 
 TINY_STL_BEGIN_NAMESPACE
 
-malloc_alloc_oom_handler malloc_alloc::mHandler = nullptr;
+template<int inst>
+malloc_alloc_oom_handler malloc_alloc<inst>::mHandler = nullptr;
 
-inline void * malloc_alloc::allocate(size_t n)
+template<int inst>
+inline void * malloc_alloc<inst>::allocate(size_t n)
 {
 	// 如果malloc 不成功，则调用oom_malloc尝试处理“内存不足”的问题
 	void *result = malloc(n);
@@ -14,17 +16,20 @@ inline void * malloc_alloc::allocate(size_t n)
 	return result;
 }
 
-inline void malloc_alloc::deallocate(void * ptr)
+template<int inst>
+inline void malloc_alloc<inst>::deallocate(void * ptr)
 {
 	free(ptr);
 }
 
-inline void malloc_alloc::deallocate(void * ptr, size_t n)
+template<int inst>
+inline void malloc_alloc<inst>::deallocate(void * ptr, size_t n)
 {
 	free(ptr);
 }
 
-inline void * malloc_alloc::reallocate(void * ptr, size_t new_size)
+template<int inst>
+inline void * malloc_alloc<inst>::reallocate(void * ptr, size_t new_size)
 {
 	void *result = realloc(ptr, new_size);
 	if (result == nullptr)
@@ -33,7 +38,8 @@ inline void * malloc_alloc::reallocate(void * ptr, size_t new_size)
 	return result;
 }
 
-inline malloc_alloc_oom_handler malloc_alloc::set_malloc_handler(malloc_alloc_oom_handler f)
+template<int inst>
+inline malloc_alloc_oom_handler malloc_alloc<inst>::set_malloc_handler(malloc_alloc_oom_handler f)
 {
 	malloc_alloc_oom_handler old = mHandler;
 	mHandler = f;
@@ -42,7 +48,8 @@ inline malloc_alloc_oom_handler malloc_alloc::set_malloc_handler(malloc_alloc_oo
 
 // 如果没用使用set_malloc_handler()来配置“内存不足”的处理函数，那么将会抛出bad_alloc异常信息
 // 注意，设计“内存不足”处理函数是客户端的责任，设定也是。
-void* malloc_alloc::oom_malloc(size_t n)
+template<int inst>
+void* malloc_alloc<inst>::oom_malloc(size_t n)
 {
     void* result = nullptr;
 
@@ -59,7 +66,8 @@ void* malloc_alloc::oom_malloc(size_t n)
     }
 }
 
-void* malloc_alloc::oom_realloc(void *ptr, size_t n)
+template<int inst>
+void* malloc_alloc<inst>::oom_realloc(void *ptr, size_t n)
 {
     void* result = nullptr;
 
@@ -76,18 +84,24 @@ void* malloc_alloc::oom_realloc(void *ptr, size_t n)
     }
 }
 
-char *default_alloc::start_free = 0;
-char *default_alloc::end_free = 0;
-size_t default_alloc::heap_size = 0;
+template<int inst>
+char *default_alloc<inst>::start_free = 0;
+template<int inst>
+char *default_alloc<inst>::end_free = 0;
+template<int inst>
+size_t default_alloc<inst>::heap_size = 0;
 
-default_alloc::obj* default_alloc::free_list[num_free_lists] = { 
+template<int inst>
+typename default_alloc<inst>::obj*
+default_alloc<inst>::free_list[num_free_lists] = { 
 	nullptr, nullptr, nullptr, nullptr, 
 	nullptr, nullptr, nullptr, nullptr,
 	nullptr, nullptr, nullptr, nullptr,
 	nullptr, nullptr, nullptr, nullptr,};
 
 // n must be > 0
-void* default_alloc::allocate(size_t n)
+template<int inst>
+void* default_alloc<inst>::allocate(size_t n)
 {
 	obj** my_free_list;
 	obj* result;
@@ -95,7 +109,7 @@ void* default_alloc::allocate(size_t n)
 	// size_t > 180 使用第一级配置器
 	if (n > (size_t)max_bytes)
 	{
-		return (malloc_alloc::allocate(n));
+		return (malloc_alloc<inst>::allocate(n));
 	}
 
 	// 寻找16个free-list中适合的一个
@@ -113,7 +127,8 @@ void* default_alloc::allocate(size_t n)
 }
 
 // ptr 不可以是 nullptr
-void default_alloc::deallocate(void *ptr, size_t n)
+template<int inst>
+void default_alloc<inst>::deallocate(void *ptr, size_t n)
 {
 	obj *quit = (obj*)ptr;
 	obj **my_free_list;
@@ -133,7 +148,8 @@ void default_alloc::deallocate(void *ptr, size_t n)
 	*my_free_list = quit;
 }
 
-void* default_alloc::reallocate(void* ptr, size_t old_sz, size_t new_sz)
+template<int inst>
+void* default_alloc<inst>::reallocate(void* ptr, size_t old_sz, size_t new_sz)
 {
     void* result;
     size_t copy_sz;
@@ -152,20 +168,23 @@ void* default_alloc::reallocate(void* ptr, size_t old_sz, size_t new_sz)
 }
 
 // 根据区块大小，决定使用第n号free-list, n从0开始
-inline size_t default_alloc::freelist_index(size_t bytes)
+template<int inst>
+inline size_t default_alloc<inst>::freelist_index(size_t bytes)
 {
 	return ((bytes + align - 1) / align - 1);
 }
 
 // 调整上界至 8的倍数
-inline size_t default_alloc::round_up(size_t bytes)
+template<int inst>
+inline size_t default_alloc<inst>::round_up(size_t bytes)
 {
 	return (((bytes)+align - 1) & ~(align - 1));
 }
 
 // 返回一个大小为n的对象， 并且有时候会为适当的freelist 增加节点
 // 假设 n 已经是 8 的倍数
-void* default_alloc::refill(size_t n)
+template<int inst>
+void* default_alloc<inst>::refill(size_t n)
 {
 	int nobjs = 20;
 
@@ -208,7 +227,8 @@ void* default_alloc::refill(size_t n)
 }
 
 // 从内存池中取空间给free list使用
-char* default_alloc::chunk_alloc(size_t size, int *nobjs)
+template<int inst>
+char* default_alloc<inst>::chunk_alloc(size_t size, int *nobjs)
 {
 	char *result = nullptr;
 	size_t total_bytes = size * (*nobjs);
@@ -261,7 +281,7 @@ char* default_alloc::chunk_alloc(size_t size, int *nobjs)
 				}
 			}
 			end_free = 0;
-			start_free = (char*)malloc_alloc::allocate(bytes_to_get);
+			start_free = (char*)malloc_alloc<inst>::allocate(bytes_to_get);
 		}
 		heap_size += bytes_to_get;
 		end_free = start_free + bytes_to_get;
